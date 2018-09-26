@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/socket.io.js"></script>
+    <script>
+      var socket = io('http://nodejs-ajimenez.rhcloud.com:8000');
+
+      socket.on('message', function(message) {
+        var currentVal = $('#ta_messages').val();
+        if (!currentVal) {
+          currentVal = '';
+        } else {
+          currentVal = currentVal + '\n';
+        }
+        $('#ta_messages').val(currentVal + message);
+      });
+
+      function connect() {
+        socket.emit('start listening');
+      }
+    </script>
+  </head>
+  <body>
+    <textarea id="ta_messages"></textarea>
+    <button onclick="connect()">Connect</button>
+  </body>
+</html>
+
